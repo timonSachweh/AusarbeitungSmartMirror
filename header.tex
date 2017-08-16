@@ -1,0 +1,273 @@
+% header.tex
+\documentclass[a4paper,11pt,twoside,ngerman]{book}
+% Dimensionen des Dokuments. Nicht ändern!
+\usepackage[a4paper,left=3.5cm,right=2.5cm,bottom=2.5cm,top=3.5cm,headheight=20pt]{geometry}
+
+\usepackage[pdftex]{graphicx}
+
+% Einige wichtige Standard-Pakete
+\usepackage{amsmath,amssymb,subfigure}
+
+
+% Theorem-Umgebungen
+\usepackage[amsmath,thmmarks]{ntheorem}
+
+% Korrekte Darstellung der Umlaute
+\usepackage[utf8x]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+
+% Minimale Verbesserung von Zeilenumbrüchen und Wortabständen
+\usepackage{microtype}
+
+% Formatierung von floats
+\usepackage{floatrow}
+
+% Algorithmen
+\usepackage[plain,chapter]{algorithm}
+\usepackage{algorithmic}
+
+\usepackage{enumerate}
+% Eine verbesserte Version der Schriftart computer modern; für Vektorschrift überall.
+\usepackage{lmodern}
+
+% Bibtex deutsch
+\usepackage{bibgerm}
+
+% Für Testzwecke
+\usepackage{blindtext}
+
+% urls
+\usepackage[hidelinks]{hyperref}
+
+% Caption Packet
+\usepackage[margin=0pt,font=small,labelfont=bf]{caption}
+
+\usepackage[explicit]{titlesec}
+
+%Für das Einbinden der Eidestattlichen Erklärung
+\usepackage{pdfpages}
+
+% Das fancy header paket für schönere Kopf- und Fußzeilen
+\usepackage{fancyhdr}
+\usepackage{helvet}
+\usepackage{xcolor}
+\usepackage{calc}
+
+% ==============
+% Es folgt die Konfiguration der Kopf- und Fußzeilen
+% ==============
+\definecolor{TUGreen}{rgb}{0.517,0.721,0.094}
+\definecolor{bgpagenum}{gray}{.75}
+\definecolor{fgheader}{gray}{.6}
+\newboolean{TuFarben}
+\setboolean{TuFarben}{false}
+
+
+\def\mystrut(#1){\vrule height #1pt width 0pt}    
+\newlength{\headerspace}
+\setlength{\headerspace}{1mm}
+
+\newboolean{KopfInnen}
+\setboolean{KopfInnen}{false}
+
+\newcommand{\textmarkleft}{\fontfamily{phv}\selectfont\fontsize{12}{5}\bfseries
+	\colorbox{bgpagenum}{
+		\begin{minipage}[t][8pt]{4cm}
+		\raggedleft\textcolor{white}{\thepage}
+		\end{minipage}
+	}
+	\hspace{\headerspace}
+	\textcolor{fgheader}{
+		\nouppercase\rightmark
+	}
+}
+	
+\newcommand{\textmarkright}{
+	\fontfamily{phv}\selectfont\fontsize{12}{5}\bfseries
+	\textcolor{fgheader}{
+		\nouppercase\leftmark
+	}
+	\hspace{\headerspace}
+	\colorbox{bgpagenum}{
+		\begin{minipage}[t][8pt]{4cm}
+			\raggedright\textcolor{white}{\thepage}	
+		\end{minipage}
+	}
+}
+
+\newcommand{\numbermarkright}{
+	\fontfamily{phv}\selectfont\fontsize{12}{5}\bfseries
+	\colorbox{bgpagenum}{
+		\begin{minipage}[t][8pt]{4cm}
+			\raggedright\textcolor{white}{\thepage}
+		\end{minipage}
+	}
+}
+
+\newcommand{\numbermarkleft}{
+	\fontfamily{phv}\selectfont\fontsize{12}{5}\bfseries
+	\colorbox{bgpagenum}{
+		\begin{minipage}[t][8pt]{4cm}
+			\raggedleft\textcolor{white}{\thepage}	
+		\end{minipage}
+	}
+}
+
+\newcommand{\fancypages}{
+	\pagestyle{fancy}
+	\ifthenelse{\boolean{KopfInnen}}{
+		\fancyheadoffset[loh]{4.5cm}
+		\fancyheadoffset[reh]{4.5cm}
+	}{
+		\fancyheadoffset[leh]{4.5cm}
+		\fancyheadoffset[roh]{4.5cm}
+	}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}
+	\fancyhead[LO]{\ifthenelse{\boolean{KopfInnen}}{\textmarkleft}{}}
+	\fancyhead[RO]{\ifthenelse{\boolean{KopfInnen}}{}{\textmarkright}}
+	\fancyhead[RE]{\ifthenelse{\boolean{KopfInnen}}{\textmarkright}{}}
+	\fancyhead[LE]{\ifthenelse{\boolean{KopfInnen}}{}{\textmarkleft}}
+	\fancyfoot[C]{}
+}
+
+\newcommand{\configurefancypages}{
+	\fancypagestyle{plain}{%
+		\fancyhf{} 
+		\ifthenelse{\boolean{KopfInnen}}{
+			\fancyheadoffset[loh]{4.5cm}
+			\fancyheadoffset[reh]{4.5cm}
+		}{
+			\fancyheadoffset[leh]{4.5cm}
+			\fancyheadoffset[roh]{4.5cm}
+		}
+		\renewcommand{\headrulewidth}{0pt}
+		\renewcommand{\footrulewidth}{0pt}
+		
+		\fancyhead[LO]{\ifthenelse{\boolean{KopfInnen}}{\numbermarkleft}{}}
+		\fancyhead[RO]{\ifthenelse{\boolean{KopfInnen}}{}{\numbermarkright}}
+		\fancyhead[RE]{\ifthenelse{\boolean{KopfInnen}}{\numbermarkright}{}}
+		\fancyhead[LE]{\ifthenelse{\boolean{KopfInnen}}{}{\numbermarkleft} }
+		\fancyfoot[C]{}
+	}
+	\ifthenelse{\boolean{TuFarben}}{
+		\colorlet{bgpagenum}{TUGreen!70!white}
+		\colorlet{fgheader}{TUGreen!80!white}
+	}{}
+}
+% ==============
+% Konfiguration der Kopf- und Fußzeilen abgeschlossen.
+% ==============
+
+
+% Konfiguration der Chapter-Überschriften 
+% für den Fall, dass ausgefallene Überschriften gewünscht sind
+\newboolean{UnterlegteKapitel}
+\setboolean{UnterlegteKapitel}{false}
+\newlength{\almosttextwidth}
+\setlength{\almosttextwidth}{\textwidth-6pt}
+\newcommand{\configurechapterheadings}{
+\ifthenelse{\boolean{UnterlegteKapitel}}{
+	
+	\titleformat{\chapter}
+	{\vspace{-0.75cm}\normalfont\Huge\bfseries}{}{0em}{\colorbox{bgpagenum}{\begin{minipage}[b][60pt]{\almosttextwidth}\strut\textcolor{white}{\thechapter\quad##1}\end{minipage}}}
+	\titleformat{name=\chapter,numberless}
+	{\vspace{-0.75cm}\normalfont\Huge\bfseries}{}{0em}{\colorbox{bgpagenum}{\begin{minipage}[b][60pt]{\almosttextwidth}\strut\textcolor{white}{##1}\end{minipage}}}
+}{}
+}
+
+% Einige Einstellungen für Floats. Bitte nicht ändern!
+\floatsetup[table]{capposition=top}
+\floatsetup[algorithm]{capposition=top}
+
+% Theorem-Optionen %
+\theoremseparator{.}
+\theoremstyle{change}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{satz}[theorem]{Satz}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{korollar}[theorem]{Korollar}
+\newtheorem{proposition}[theorem]{Proposition}
+% Ohne Numerierung
+\theoremstyle{nonumberplain}
+\renewtheorem{theorem*}{Theorem}
+\renewtheorem{satz*}{Satz}
+\renewtheorem{lemma*}{Lemma}
+\renewtheorem{korollar*}{Korollar}
+\renewtheorem{proposition*}{Proposition}
+% Definitionen mit \upshape
+\theorembodyfont{\upshape}
+\theoremstyle{change}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{nonumberplain}
+\renewtheorem{definition*}{Definition}
+% Kursive Schrift
+\theoremheaderfont{\itshape}
+\newtheorem{notation}{Notation}
+\newtheorem{konvention}{Konvention}
+\newtheorem{bezeichnung}{Bezeichnung}
+\theoremsymbol{\ensuremath{\Box}}
+\newtheorem{beweis}{Beweis}
+\theoremsymbol{}
+\theoremstyle{change}
+\theoremheaderfont{\bfseries}
+\newtheorem{bemerkung}[theorem]{Bemerkung}
+\newtheorem{beobachtung}[theorem]{Beobachtung}
+\newtheorem{beispiel}[theorem]{Beispiel}
+\newtheorem{problem}{Problem}
+\theoremstyle{nonumberplain}
+\renewtheorem{bemerkung*}{Bemerkung}
+\renewtheorem{beispiel*}{Beispiel}
+\renewtheorem{problem*}{Problem}
+
+\newcommand{\kooperation}{}
+
+% Algorithmen anpassen %
+\renewcommand{\algorithmicrequire}{\textit{Eingabe:}}
+\renewcommand{\algorithmicensure}{\textit{Ausgabe:}}
+\floatname{algorithm}{Algorithmus}
+\renewcommand{\listalgorithmname}{Algorithmenverzeichnis}
+\renewcommand{\algorithmiccomment}[1]{\color{grau}{// #1}}
+
+% Zeilenabstand einstellen %
+\renewcommand{\baselinestretch}{1.25}
+% Floating-Umgebungen anpassen %
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+% Abkuerzungen richtig formatieren %
+\usepackage{xspace}
+\newcommand{\vgl}{vgl.\@\xspace} 
+\newcommand{\zB}{z.\nolinebreak[4]\hspace{0.125em}\nolinebreak[4]B.\@\xspace}
+\newcommand{\bzw}{bzw.\@\xspace}
+\newcommand{\dahe}{d.\nolinebreak[4]\hspace{0.125em}h.\nolinebreak[4]\@\xspace}
+\newcommand{\etc}{etc.\@\xspace}
+\newcommand{\evtl}{evtl.\@\xspace}
+\newcommand{\ggf}{ggf.\@\xspace}
+\newcommand{\bzgl}{bzgl.\@\xspace}
+\newcommand{\so}{s.\nolinebreak[4]\hspace{0.125em}\nolinebreak[4]o.\@\xspace}
+\newcommand{\iA}{i.\nolinebreak[4]\hspace{0.125em}\nolinebreak[4]A.\@\xspace}
+\newcommand{\sa}{s.\nolinebreak[4]\hspace{0.125em}\nolinebreak[4]a.\@\xspace}
+\newcommand{\su}{s.\nolinebreak[4]\hspace{0.125em}\nolinebreak[4]u.\@\xspace}
+\newcommand{\ua}{u.\nolinebreak[4]\hspace{0.125em}\nolinebreak[4]a.\@\xspace}
+\newcommand{\og}{o.\nolinebreak[4]\hspace{0.125em}\nolinebreak[4]g.\@\xspace}
+\newcommand{\oBdA}{o.\nolinebreak[4]\hspace{0.125em}\nolinebreak[4]B.\nolinebreak[4]\hspace{0.125em}d.\nolinebreak[4]\hspace{0.125em}A.\@\xspace}
+\newcommand{\OBdA}{O.\nolinebreak[4]\hspace{0.125em}\nolinebreak[4]B.\nolinebreak[4]\hspace{0.125em}d.\nolinebreak[4]\hspace{0.125em}A.\@\xspace}
+
+% Leere Seite ohne Seitennummer, naechste Seite rechts
+% Für Titelseite nötig, sonst nicht.
+\newcommand{\blankpage}{
+ \clearpage{\pagestyle{empty}\cleardoublepage}
+}
+
+%Booleans, die die Formatierung der Verzeichnisse im Anhang bestimmen
+\newboolean{AbbildungsverzeichnisEinfuegen}
+\newboolean{AlgorithmenverzeichnisEinfuegen}
+\newboolean{TabellenverzeichnisEinfuegen}
+\newboolean{PlatzsparendeVerzeichnisse}
+
+% Keine einzelnen Zeilen beim Anfang eines Abschnitts (Schusterjungen)
+\clubpenalty = 10000
+% Keine einzelnen Zeilen am Ende eines Abschnitts (Hurenkinder)
+\widowpenalty = 10000 \displaywidowpenalty = 10000
+% EOF

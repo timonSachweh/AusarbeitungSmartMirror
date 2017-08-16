@@ -1,0 +1,87 @@
+%% ========================
+%  Kurzanleitung:
+%  Diese Datei ist die Hauptdatei, die mit dem TeX-Programm geöffnet wird. 
+%  Wird empfehlen dazu TeXStudio.
+%  
+%  Außer in dem mit Pfeilen markierten Bereich etwas weiter unten
+%  sollte in dieser Datei nicht geändert werden.
+%  
+%  Die Grundeinstellungen (Titel der Arbeit, Name, Formatiertungsdetails)
+%  können in der Datei "einstellungen.tex" vorgenommen werden.
+% 
+%  Die ursprüngliche Version dieser Vorlage wurde erstellt durch 
+%  die Fakultät Informatik der TU Dortmund. Die vorliegende Version wurde 
+%  modifiziert durch den Lehrstuhl 13. 
+%% ========================
+
+%% ========================
+%  Zwei Konfigurationsdateien, die selbst keinen Text-Inhalt enthalten.
+%  "header.tex" sollte unverändert bleiben.
+%  "einstellungen.tex" muss editiert werden.
+%% ========================
+\include{header}
+\include{einstellungen}
+
+%% ========================
+%  Titelseite und Inhaltsverzeichnis
+%  Hier nichts ändern!
+%% ========================
+\configurefancypages
+\configurechapterheadings
+\begin{document}
+\pagenumbering{Alph}
+\include{kapitel/titelseite}
+\blankpage
+\pagenumbering{roman}
+\microtypesetup{protrusion=false}
+\pagestyle{plain}
+\tableofcontents
+\microtypesetup{protrusion=true}
+\cleardoublepage
+\fancypages
+\pagenumbering{arabic}
+
+%% ========================
+%  Ab hier folgt der eigentliche Inhalt der Arbeit.	
+%  Hier können beliebige .tex-Dateien eingefügt werden.
+%% ====================================================
+%% ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
+
+\include{kapitel/einleitung}
+\include{kapitel/kapitel2}
+\appendix
+\include{kapitel/anhang}
+
+
+%% ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+%% ====================================================
+%  Ab hier bis zum Ende nichts ändern!
+%  Verzeichnisse werden automatisch anhand der in "einstellungen.tex" gewählten Optionen erstellt.
+%% ========================
+\ifthenelse{\boolean{PlatzsparendeVerzeichnisse}}{
+\let\cleardoublepage\clearpage
+}{}
+\ifthenelse{\boolean{AbbildungsverzeichnisEinfuegen}}{
+%Abbildungsverzeichnis
+\listoffigures
+\addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
+}{}
+\ifthenelse{\boolean{TabellenverzeichnisEinfuegen}}{
+%Tabellenverzeichnis
+\listoftables
+\addcontentsline{toc}{chapter}{Tabellenverzeichnis}
+}{}
+\ifthenelse{\boolean{AlgorithmenverzeichnisEinfuegen}}{
+% Algorithmenverzeichnis
+\listofalgorithms
+\addcontentsline{toc}{chapter}{Algorithmenverzeichnis}
+}{}
+% Literaturverzeichnis
+\bibliographystyle{alphadin}
+\bibliography{literatur}
+\addcontentsline{toc}{chapter}{\bibname}
+% Erklaerung
+\cleardoublepage
+\includepdf[]{kapitel/Eidesstattliche_Versicherung.pdf}
+\end{document}
