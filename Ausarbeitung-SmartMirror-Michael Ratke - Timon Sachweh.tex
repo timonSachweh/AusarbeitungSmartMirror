@@ -27,7 +27,7 @@
 %  Hier nichts ändern!
 %% ========================
 \configurefancypages
-\configurechapterheadings
+%\configurechapterheadings
 \begin{document}
 \pagenumbering{Alph}
 \include{kapitel/titelseite}
@@ -38,7 +38,18 @@
 \tableofcontents
 \microtypesetup{protrusion=true}
 %d\cleardoublepage
-%\fancypages
+\fancypages
+\fancyhf{}
+\fancyhead[L]{\textit{SmartMirror}}
+\fancyfoot[L]{\leftmark}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0.25pt}
+\renewcommand{\footrulewidth}{0.25pt}
+
+\renewcommand{\sectionmark}[1]{ 
+	\markboth{\thesection{} #1}{}
+}
+
 \pagenumbering{arabic}
 
 %% ========================
