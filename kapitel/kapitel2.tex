@@ -8,8 +8,7 @@ Das Softwareprojekt selbst ist in zwei Komponenten aufgeteilt. Die erste Softwar
 
 \begin{figure}
 	\centering
-	\def\svgwidth{0.7\linewidth}
-	\includegraphics[width=0.7\linewidth]{bilder/DeploymentDiagram}
+	\includegraphics[width=0.8\linewidth]{bilder/DeploymentDiagram}
 	\caption[Verteilungsdiagramm der SmartMirror-Applikationen]{Verteilungsdiagramm der SmartMirror-Applikationen}
 	\label{fig:verteilungsdiagramm}
 \end{figure}
@@ -23,14 +22,14 @@ Beide Softwarekomponenten werden im Folgenden detaillierter beschrieben: zuerst 
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.7\linewidth]{bilder/grafOberflaeche}
+	\includegraphics[width=0.8\linewidth]{bilder/grafOberflaeche}
 	\caption[Benutzungsschnittstelle der SmartMirror-Anwendung]{Benutzungsschnittstelle der SmartMirror-Anwendung}
 	\label{fig:grafoberflaeche}
 \end{figure}
 
 
 \subsection{Die SmartMirror-Anwendung}
-
+\label{smartMirror}
 Die Funktionalität der SmartMirror-Anwendung lässt sich am besten ausgehend von der Gestaltung der Benutzungsschnittstelle erfassen, die in \autoref{fig:grafoberflaeche} dargestellt wird. Die Darstellung lässt sich grob in drei Bereiche strukturieren: den oberen linken Bereich, den oberen rechten und den unteren Bereich. Oben links werden aktuelle Informationen konkret Uhrzeit, Datum und Wetterdaten angezeigt, während im rechten Bereich die nächsten Kalenderereignisse aufgeführt werden und im unteren Bereich aktuelle Neuigkeiten (News) angezeigt werden. 
 
 \subsubsection*{Benutzungsschnittstelle}
@@ -52,7 +51,7 @@ Bei der SmartMirror-Anwendung handelt es sich um eine Drei-Schicht-Architektur (
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.7\linewidth]{bilder/umlDiagram_v3}
+	\includegraphics[width=0.8\linewidth]{bilder/umlDiagram_v3}
 	\caption[UML-Diagramm: Klassenaufbau der Hauptapplikation]{UML-Diagramm: Klassenaufbau der Hauptapplikation}
 	\label{fig:umldiagramClasses}
 \end{figure}
@@ -68,7 +67,7 @@ Zeile 16 sorgt für den erneuten Methodenaufruf nach 200 Millisekunden.
 Die Controller-Schicht importiert die anzuzeigenden Daten und bestimmt die aktuelle geographische Position des Spiegels in der Klasse  \textit{Positions}.\textit{Positions} ermittelt über die IP-Adresse des WLAN-Interfaces die Position, um daraus implizit den aktuellen Ort für die Wettervorhersage zu ermitteln. Diese Information benötigt die Klasse \textit{WeatherInformation}, um über die \textbf{Py}thon \textbf{O}pen \textbf{W}eather \textbf{M}ap (PyOWM) (vgl. Quelle) die aktuelle Wettervorhersage für den ermittelten Ort anzufragen. PyOWM selbst ist ein Python Wrapper zur Nutzung der Open Weather Map. Die erforderliche Kommunikation zur Ermittlung der Daten ist in (vgl. \autoref{fig:umldiagramClasses}) dargestellt.  
  \begin{figure}
  	\centering
- 	\includegraphics[width=0.7\linewidth]{bilder/sequenceDiagramGettingData_v2}
+ 	\includegraphics[width=0.8\linewidth]{bilder/sequenceDiagramGettingData_v2}
  	\caption{Sequenzdiagramm: Wetterdaten anfragen vom OWM-Service}
  	\label{fig:sequenzDiagramData}
  \end{figure}
@@ -83,9 +82,14 @@ Die Controller-Schicht importiert die anzuzeigenden Daten und bestimmt die aktue
 
 \subsection{Das StartUp-Skript}
 
+Die Funktionalität des \textit{StartUp-Skripts} zeichnet sich durch das Starten der Hauptanwendung aus, nachdem der \textit{Raspberry Pi} mit dem Bootvorgang fertig ist. Dazu muss ein Bash-Skript (vgl. \autoref{lst:startup}) geschrieben werden, welches automatisch bei dem Starten des Computers ausgeführt wird. 
+Das direkte Ausführen des Skripts wird dadurch realisiert, dass die Datei in das Verzeichnis \textit{/etc/init.d/} gelegt wird, wodurch sie direkt im Anschluss an die Bootsequenz ausgeführt wird. 
+
 \begin{minipage}{\textwidth}
 	\lstinputlisting[language=bash, frame=single, caption={StartUp-Skript}, label=lst:startup]{codesnippets/startscript.sh}
-\end{minipage}
+\end{minipage} 
+
+Das Skript ist dabei so aufgebaut, dass in der ersten Zeile definiert wird, dass das Skript mittels dem Interpreter-Programm \textit{/bin/sh} ausgeführt werden soll. Als nächstes wird in Zeile 3 in das Verzeichnis der \textit{SmartMirror}-Anwendung (vgl. \autoref{smartMirror}) gewechselt, um dort die diese in Zeile 5 zu starten. Die Zeile 4 stellt ausschließlich sicher, dass der Hauptmonitor für den grafischen Output verwendet wird, damit die UI der \textit{SmartMirror}-Anwendung auch in dem Spiegel dargestellt wird. Wenn diese Zeile ausgelassen würde und der Raspberry Pi ohne GUI startet, dann läuft zwar die Anwendung für den Spiegel, aber weil kein grafischer Ausgang definiert ist, wird die Anwendung nicht auf dem externen Monitor visualisiert. Somit bietet die Zeile eine Sicherheit, dass auch wirklich ein angeschlossener Monitor angesteuert wird.
 
 \section{Der SmartMirror im Einsatz}
 \subsection{Inbetriebnahme}
