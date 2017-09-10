@@ -8,7 +8,8 @@ Das Softwareprojekt selbst ist in zwei Komponenten aufgeteilt. Die erste Softwar
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.7\linewidth]{bilder/grafOberflaeche}
+	\def\svgwidth{0.7\linewidth}
+	\includegraphics[width=0.7\linewidth]{bilder/DeploymentDiagram}
 	\caption[Verteilungsdiagramm der SmartMirror-Applikationen]{Verteilungsdiagramm der SmartMirror-Applikationen}
 	\label{fig:verteilungsdiagramm}
 \end{figure}
@@ -81,6 +82,10 @@ Die Controller-Schicht importiert die anzuzeigenden Daten und bestimmt die aktue
  
 
 \subsection{Das StartUp-Skript}
+
+\begin{minipage}{\textwidth}
+	\lstinputlisting[language=bash, frame=single, caption={StartUp-Skript}, label=lst:startup]{codesnippets/startscript.sh}
+\end{minipage}
 
 \section{Der SmartMirror im Einsatz}
 \subsection{Inbetriebnahme}
