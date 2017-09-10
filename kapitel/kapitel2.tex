@@ -4,7 +4,7 @@
 \section{Aufbau der Softwarearchitektur}
 Wie im ersten Teil der Ausarbeitung verdeutlicht wurde, ist der Raspberry Pi im Inneren des Spiegels das Kernstück der gesamten Plattform. Auf dieser Hardwarekomponente läuft dementsprechend die komplett entwickelte Software. 
 
-Das Softwareprojekt selbst ist in zwei Komponenten aufgeteilt. Die erste Softwarekomponente realisiert die eigentliche SmartMirror-Anwendung inklusive der Ausgestaltung der Benutzungsschnittstelle, der Kommunikation mit verbauten Sensoren und des Datenimportes aus Datenquellen des Internets. Diese Anwendung ist in Python geschrieben, realisiert die SmartMirror-Funktionalität und hat den größten Anteil des Implementierungsaufwandes erfordert. Im Gegensatz dazu steht die zweite Softwarekomponente, im folgenden StartUp-Anwendung genannt, die ein Skript umfasst, das nach dem Systemstart die SmartMirror-Anwendung startet. Bei dieser handelt es sich eher um eine erforderliche Hilfskomponente von geringerem Umfang, die als Bash-Skript direkt ausführbar auf Betriebssystemebene realisiert wurde.  
+Das Softwareprojekt selbst ist in zwei Komponenten aufgeteilt. Die erste Softwarekomponente realisiert die eigentliche SmartMirror-Anwendung inklusive der Ausgestaltung der Benutzungsschnittstelle, der Kommunikation mit verbauten Sensoren und des Datenimportes aus Datenquellen des Internets. Diese Anwendung ist in Python geschrieben, realisiert die SmartMirror-Funktionalität und hat den größten Anteil des Implementierungsaufwandes erfordert. Im Gegensatz dazu steht die zweite Softwarekomponente, im folgenden StartUp-Anwendung genannt, die ein Skript umfasst, das nach dem Systemstart die SmartMirror-Anwendung startet. Bei dieser handelt es sich um eine erforderliche Hilfskomponente von geringerem Umfang, die als Bash-Skript direkt ausführbar auf Betriebssystemebene realisiert wurde.  
 
 \begin{figure}
 	\centering
@@ -13,10 +13,10 @@ Das Softwareprojekt selbst ist in zwei Komponenten aufgeteilt. Die erste Softwar
 	\label{fig:verteilungsdiagramm}
 \end{figure}
 
-Zum besseren Verständnis ist in \autoref{fig:verteilungsdiagramm} der softwaretechnische Technologiestack der beiden Softwarekomponenten in Form eines UML-Verteilungsdiagramms dargestellt (Literatur). Die zentrale physikalische Ausführungseinheit ist der Raspberry Pi. Dieser kommuniziert über das Serial IO-Protokoll (SIO) mit den zwei verbauten Sensoren: einem Bewegungssensor, sowie einem kombinierten Temperatur- und Luftfeuchtigkeitssensor. Beide Sensoren wurden so gewählt, dass eine Kommunikation über SIO möglich ist. Dieses Protokoll lässt sich über die ...-API (Literatur) sehr gut in Phython-Anwendungen einbinden, wie im \autoref{subsec:kommunikation} weiter ausgeführt wird. Des weiteren zeigt das Diagramm, dass zwei weitere Informationsquellen über das Internet, also das http(s)-Protokoll, angebunden werden. Dabei handelt es sich zum Einen um  
-einen Newsserver (XYZ-Adresse?!), über den aktuelle Spiegel-Nachrichten über einen RSS-Feed (Literatur) eingebunden werden können und zum Anderen um die Einbindung eines google-Kalenders. Die Kalendereinträge werden über  REST-Webservices (Literatur) im JSON-Format (Literatur/Quelle) abgefragt. 
+Zum besseren Verständnis ist in \autoref{fig:verteilungsdiagramm} der softwaretechnische Technologiestack der beiden Softwarekomponenten in Form eines UML-Verteilungsdiagramms dargestellt \cite{booch1999uml}. Die zentrale physikalische Ausführungseinheit ist der Raspberry Pi. Dieser kommuniziert über das Serial IO-Protokoll (SIO) mit den zwei verbauten Sensoren: einem Bewegungssensor, sowie einem kombinierten Temperatur- und Luftfeuchtigkeitssensor. Beide Sensoren wurden so gewählt, dass eine Kommunikation über SIO möglich ist. Dieses Protokoll lässt sich über die Adafruit-API sehr gut in Python-Anwendungen einbinden, wie im Unterkapitel \autoref{subsec:strukturAnwendung} weiter ausgeführt wird \cite{adafruit2017}. Des weiteren zeigt das Diagramm, dass zwei weitere Informationsquellen über das Internet, also das http(s)-Protokoll, angebunden werden. Dabei handelt es sich zum Einen um  
+einen Newsserver, über den aktuelle T-Online-Nachrichten über einen RSS-Feed eingebunden werden können und zum Anderen um die Einbindung eines Google-Kalenders\cite{feedparserLib}\cite{vayssiere2004system}. Die Kalendereinträge werden über  REST-Webservices im JSON-Format abgefragt\cite{bricalliweb}\cite{bray2014javascript}. 
 
-Die beiden Softwarekomponenten des SmartMirrors laufen auf Basis eines Linux ..., das als Betriebssystem auf dem Rasberry Pi installiert wurde. Die SmartMirror-Anwendung \glqq SmartMirror.??? \grqq ist ein Artefakt, welches durch den Python-Interpreter \glqq XYZ \grqq interpretiert wird. Das StartUp-Skript kann mit dem Kommando \glqq .... \grqq direkt auf dem Betriebssystem ausgeführt werden. 
+Die beiden Softwarekomponenten des SmartMirrors laufen auf Basis eines Linux Raspbian Jessie, das als Betriebssystem auf dem Rasberry Pi installiert wurde. Die SmartMirror-Anwendung \glqq SmartMirror.py \grqq ist ein Artefakt, welches durch den Python-Interpreter interpretiert wird. Das StartUp-Skript kann durch direktes Aufrufen der Datei auf dem Betriebssystem ausgeführt werden. 
 
 Beide Softwarekomponenten werden im Folgenden detaillierter beschrieben: zuerst die SmartMirror-Anwendung und dann das StartUp-Skript.
 
@@ -34,7 +34,7 @@ Die Funktionalität der SmartMirror-Anwendung lässt sich am besten ausgehend vo
 
 \subsubsection*{Benutzungsschnittstelle}
 
-Zur Gestaltung der Benutzungsschnittstelle wurde das Framework TkInter genutzt. Die Abkürzung steht für (\textbf{Tk Inter}face).  Durch Tkinter ist es mit Python möglich, Programme mit einer grafischen Benutzeroberfläche zu erstellen, die unter Windows, Mac OS und unter einigen Linux-Distributionen laufen. Bei TkInter handelt es sich, um das Standard GUI (Graphical User Interface) Package von Python. Es realisiert eine dünne objektorientierte Schicht über Tcl/Tk (Literatur). 
+Zur Gestaltung der Benutzungsschnittstelle wurde das Framework TkInter genutzt. Die Abkürzung steht für (\textbf{Tk Inter}face).  Durch Tkinter ist es mit Python möglich, Programme mit einer grafischen Benutzeroberfläche zu erstellen, die unter Windows, Mac OS und unter einigen Linux-Distributionen laufen. Bei TkInter handelt es sich, um das Standard GUI (Graphical User Interface) Package von Python. Es realisiert eine dünne objektorientierte Schicht über Tcl/Tk \cite{scholl2014tcl}. 
 
 Zur Strukturierung der Oberfläche in die drei zuvor beschriebenen Bereiche wurde der Grid-Manager verwendet. Der Grid-Manager strukturiert Bedienelemente in einer Art Tabelle, die entsprechend in Reihen und Spalten angeordnet ist. Zur Anordnung werden 'row' und 'column' angegeben (vgl. \autoref{lst:structApplication}). Zeile 5 des Listings beschreibt, dass das \textit{GeneralInformation}-Frame, welches Uhrzeit, Datum und Wetterdaten anzeigt, in Zeile 0 und Spalte 0 angeordnet wird und in beide Dimensionen nur eine Zelle benötigt (\textit{rowspan=1, columnspan=1}). Der letzte Parameter in der Zeile (\textit{sticky=\grqq nse\grqq}) definiert die Ausrichtung der Subelement in dem Frame. Dabei steht jedes Zeichen (n, s, e) für eine Himmelsrichtung. Analog dazu wurden in den Zeilen 6 und 7 die weiteren Bereiche auf der Oberfläche angeordnet. In Zeile 7 legt \textit{\textit{columnspan=2}} fest, dass sich der News-Bereich über zwei Spalten erstreckt.
 
@@ -46,8 +46,8 @@ Jeder Bereich ist als eigenes Frame realisiert. Während sowohl die Kalendererei
 
  
 \subsubsection*{Struktur der Anwendung}
-
-Bei der SmartMirror-Anwendung handelt es sich um eine Drei-Schicht-Architektur (Literatur) (vgl. \autoref{fig:umldiagramClasses}). Die Darstellungsschicht (\textit{view}), die zuvor bereits von der Darstellungsseite  beschrieben wurde, greift auf eine weitere Schicht \textit{controller} zu, die alle erforderlichen Daten importiert und in die Datenstrukturen der darunterliegenden Schicht (\textit{model}) speichert.
+\label{subsec:strukturAnwendung}
+Bei der SmartMirror-Anwendung handelt es sich um eine Drei-Schicht-Architektur (vgl. \autoref{fig:umldiagramClasses})\cite{sharan2015model}. Die Darstellungsschicht (\textit{view}), die zuvor bereits von der Darstellungsseite  beschrieben wurde, greift auf eine weitere Schicht \textit{controller} zu, die alle erforderlichen Daten importiert und in die Datenstrukturen der darunterliegenden Schicht (\textit{model}) speichert.
 
 \begin{figure}
 	\centering
@@ -64,7 +64,7 @@ Zeile 16 sorgt für den erneuten Methodenaufruf nach 200 Millisekunden.
 	\lstinputlisting[frame=single, language=python, style=myPython, escapeinside={(*}{*)}, caption={GeneralInformation Frame},label=lst:structGeneralFrame]{codesnippets/frameExample.py}
 \end{minipage}
  
-Die Controller-Schicht importiert die anzuzeigenden Daten und bestimmt die aktuelle geographische Position des Spiegels in der Klasse  \textit{Positions}.\textit{Positions} ermittelt über die IP-Adresse des WLAN-Interfaces die Position, um daraus implizit den aktuellen Ort für die Wettervorhersage zu ermitteln. Diese Information benötigt die Klasse \textit{WeatherInformation}, um über die \textbf{Py}thon \textbf{O}pen \textbf{W}eather \textbf{M}ap (PyOWM) (vgl. Quelle) die aktuelle Wettervorhersage für den ermittelten Ort anzufragen. PyOWM selbst ist ein Python Wrapper zur Nutzung der Open Weather Map. Die erforderliche Kommunikation zur Ermittlung der Daten ist in (vgl. \autoref{fig:umldiagramClasses}) dargestellt.  
+Die Controller-Schicht importiert die anzuzeigenden Daten und bestimmt die aktuelle geographische Position des Spiegels in der Klasse  \textit{Positions}.\textit{Positions} ermittelt über die IP-Adresse des WLAN-Interfaces die Position, um daraus implizit den aktuellen Ort für die Wettervorhersage zu ermitteln. Diese Information benötigt die Klasse \textit{WeatherInformation}, um über die \textbf{Py}thon \textbf{O}pen \textbf{W}eather \textbf{M}ap (PyOWM) die aktuelle Wettervorhersage für den ermittelten Ort anzufragen. PyOWM selbst ist ein Python Wrapper zur Nutzung der Open Weather Map. Die erforderliche Kommunikation zur Ermittlung der Daten ist in (vgl. \autoref{fig:umldiagramClasses}) dargestellt \cite{pyowm}.
  \begin{figure}
  	\centering
  	\includegraphics[width=0.8\linewidth]{bilder/sequenceDiagramGettingData_v2}
@@ -73,8 +73,8 @@ Die Controller-Schicht importiert die anzuzeigenden Daten und bestimmt die aktue
  \end{figure}
 
  Die Klasse \textit{GeneralInformationFrame} fordert über die Methode \textit{getWeather} die Wetterdaten von der Klasse \textit{WeatherInformation} an. Diese startet über PyOWM eine Web-Anfrage bei der Open Weather Map. Nach Empfang der Daten legt \textit{WeatherInformation} die Informationen als \textit{Weather}-Daten im Model ab und stellt sie so dem \textit{GeneralInformationFrame} zu Verfügung. 
- Analog fragt die Klasse \textit{NewsfeedAccess} Daten über den Feedparser ab, welcher diese von der \textit{T-Online}-Webseite über einen RSS-Feed bezieht \cite{rss}. Anschließend wandelt der Feedparser die bezogenen Json-Daten in Python-Objekte mit eindeutigen Attributen (\textit{titel}, \textit{description}) um, sodass der Zugriff auf die Nachrichteninhalte implizit vereinfacht wird.
- Ebenso ruft die Klasse \textit{GoogleAccess} die nächsten Kalendereinträge über die GoogleCalendarAPI ab. Dabei wird zur Authentifizierung das O-Auth-Protokoll verwendet, bei dem initial die Berechtigung des Zugriffs auf den Kalender für einen spezifischen Google-Account hinterlegt wird. Anschließend werden analog zu der Open Weather Map Web-Anfragen über die GoogleCalendarAPI erstellt und die empfangenen Daten in ein von Google vorgesehenes Typen-Format konvertiert.
+ Analog fragt die Klasse \textit{NewsfeedAccess} Daten über den Feedparser ab, welcher diese von der \textit{T-Online}-Webseite über einen RSS-Feed bezieht \cite{vayssiere2004system}. Anschließend wandelt der Feedparser die bezogenen Json-Daten in Python-Objekte mit eindeutigen Attributen (\textit{titel}, \textit{description}) um, sodass der Zugriff auf die Nachrichteninhalte implizit vereinfacht wird.
+ Ebenso ruft die Klasse \textit{GoogleAccess} die nächsten Kalendereinträge über die GoogleCalendarAPI ab. Dabei wird zur Authentifizierung das O-Auth-Protokoll verwendet, bei dem initial die Berechtigung des Zugriffs auf den Kalender für einen spezifischen Google-Account hinterlegt wird. Anschließend werden analog zu der Open Weather Map Web-Anfragen über die GoogleCalendarAPI erstellt und die empfangenen Daten in ein von Google vorgesehenes Typen-Format konvertiert. \cite{boyd2012getting}
  
  Die Model-Schicht (vgl. \autoref{fig:umldiagramClasses}) speichert Daten, die im SmartMirror angezeigt werden, ebenso wie zentrale Informationen zur Darstellung, die als globale Variablen in \textit{Configurations} vorgehalten werden. Die Klasse \textit{WeatherInformation} nutzt die Klasse \textit{Weather} der Model-Schicht zur Speicherung der Wetterinformationen. 
  Analog dazu speichert die Klasse \textit{NewsfeedAccess} ihre Daten in Form von \textit{NewsFeedEntries} für den \textit{NewsBlockFrame} und die Klasse \textit{GoogleAccess} stellt ihre importierten Daten  als \textit{CalenderEntries} bereit.
@@ -83,7 +83,7 @@ Die Controller-Schicht importiert die anzuzeigenden Daten und bestimmt die aktue
 \subsection{Das StartUp-Skript}
 
 Die Funktionalität des \textit{StartUp-Skripts} zeichnet sich durch das Starten der Hauptanwendung aus, nachdem der \textit{Raspberry Pi} mit dem Bootvorgang fertig ist. Dazu wurde ein Bash-Skript (vgl. \autoref{lst:startup}) geschrieben, welches automatisch beim Starten des Computers ausgeführt wird. 
-Das direkte Ausführen des Skripts wird dadurch realisiert, dass die Datei in das Verzeichnis \textit{/etc/init.d/} gelegt wird, wodurch sie direkt im Anschluss an die Bootsequenz ausgeführt wird. 
+Das direkte Ausführen des Skripts wird dadurch realisiert, dass die Datei in das Verzeichnis \textit{/etc/init.d/} gelegt wird, wodurch sie direkt im Anschluss an die Bootsequenz ausgeführt wird. \cite{nemeth2006linux}
 
 \begin{minipage}{\textwidth}
 	\lstinputlisting[language=bash, frame=single, caption={StartUp-Skript}, label=lst:startup]{codesnippets/startscript.sh}
