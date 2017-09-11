@@ -93,6 +93,7 @@ Das direkte Ausführen des Skripts wird dadurch realisiert, dass die Datei in da
 Das Skript ist recht einfach aufgebaut. In der ersten Zeile wird das Interpreter-Programm \textit{/bin/sh} definiert, womit das Skript ausgeführt wird. Als nächstes wechselt das Kommando in Zeile 3 in das Verzeichnis der \textit{SmartMirror}-Anwendung (vgl. \autoref{smartMirror}), um die Anwendung dort in Zeile 5 zu starten. Die Zeile 4 stellt ausschließlich sicher, dass der Hauptmonitor für den grafischen Output verwendet wird, damit die UI der \textit{SmartMirror}-Anwendung auch in dem Spiegel dargestellt wird. Wenn diese Zeile ausgelassen würde und der Raspberry Pi ohne GUI startet, dann läuft zwar die Anwendung für den Spiegel, aber weil kein grafischer Ausgang definiert ist, wird die Anwendung nicht auf dem externen Monitor visualisiert. Somit bietet die Zeile eine Sicherheit, dass auch wirklich ein angeschlossener Monitor angesteuert wird.
 
 \section{Der SmartMirror im Einsatz}
+\label{sec:imEinsatz}
 
 Sobald die beiden Teilkonstruktionen \autoref{sec:hardwarekonstruktion} und \autoref{sec:softwarearchitektur} miteinander verknüpft werden, entsteht das in \autoref{fig:spiegelfertig} dargestellte Ergebnis.
 Um jedoch die Software auf die Hardware zu überspielen, sodass die Software auch stabil läuft, sind Zwischenschritte nötig, die im Folgenden detaillierter beschrieben werden.
