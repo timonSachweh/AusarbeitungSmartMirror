@@ -95,14 +95,14 @@ Das Skript ist recht einfach aufgebaut. In der ersten Zeile wird das Interpreter
 \section{Der SmartMirror im Einsatz}
 \label{sec:imEinsatz}
 
-Sobald die beiden Teilkonstruktionen \autoref{sec:hardwarekonstruktion} und \autoref{sec:softwarearchitektur} miteinander verknüpft werden, entsteht das in \autoref{fig:spiegelfertig} dargestellte Ergebnis.
+Sobald Hard- und Softwarekomponenten miteinander verknüpft werden, entsteht das in \autoref{fig:spiegelfertig} dargestellte Ergebnis.
 Um jedoch die Software auf die Hardware zu überspielen, sodass die Software auch stabil läuft, sind Zwischenschritte nötig, die im Folgenden detaillierter beschrieben werden.
 
 So ist als erstes dafür zu sorgen, dass der Raspberry mit dem Internet verbunden ist, um benötigte Software installieren zu können. Anschließend ist sicherzustellen, dass die richtige Version von Python (3.6) und damit des Python-Interpreters installiert ist, da sonst die \textit{SmartMirror}-Anwendung nicht ausgeführt werden kann. 
 Außerdem müssen alle bei der Implementierung integrierten Libraries, ebenfalls auf dem Raspberry Pi installiert sein. 
 Im letzten Schritt muss noch das StartUp-Skript in den das \autoref{subsec:startup} beschriebene Verzeichnis kopiert werden und in der \textit{Configurations.py} müssen die korrekten GPIO-Pins für die entsprechenden Sensoren hinterlegt werden. 
 
-Nachdem diese Schritte durchgeführt wurden, startet der Spiegel nach einem Neustart direkt mit der softwareseitig Implementieren UI und repräsentiert damit den fertigen Spiegel, der ausschließlich an den Strom angeschlossen und eine zuvor konfigurierte Internetverbindung herstellen muss. 
+Nachdem diese Schritte durchgeführt wurden, startet der Spiegel nach einem Neustart direkt mit der softwareseitig implementierten UI und repräsentiert damit den fertigen Spiegel, der ausschließlich an den Strom angeschlossen und eine zuvor konfigurierte Internetverbindung herstellen muss. 
 
 \begin{figure}
 	\centering
