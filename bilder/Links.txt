@@ -1,0 +1,5 @@
+DHT11 >> https://core-electronics.com.au/dht11-temperature-and-relative-humidity-sensor-module.html
+DHT11 on Board >> http://www.circuitbasics.com/how-to-set-up-the-dht11-humidity-sensor-on-the-raspberry-pi/
+Instllation >> https://tutorials-raspberrypi.de/raspberry-pi-luftfeuchtigkeit-temperatur-messen-dht11-dht22/
+Acer >> https://www.reichelt.de/Monitore-ab-43-cm-17-/ACER-V176LBMD/3/index.html?ACTION=3&GROUPID=6221&ARTICLE=138155
+controller >> https://www.banggood.com/LCD-Controller-Board-HDMI-DVI-VGA-Audio-PC-Module-Kit-For-15_6-Inch-Display-p-1045418.html
