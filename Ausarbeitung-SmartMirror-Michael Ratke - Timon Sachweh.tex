@@ -78,22 +78,23 @@
 \ifthenelse{\boolean{AbbildungsverzeichnisEinfuegen}}{
 %Abbildungsverzeichnis
 \listoffigures
-\addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
+%\addcontentsline{toc}{section}{Abbildungsverzeichnis}
 }{}
 \ifthenelse{\boolean{TabellenverzeichnisEinfuegen}}{
 %Tabellenverzeichnis
 \listoftables
-\addcontentsline{toc}{chapter}{Tabellenverzeichnis}
+%\addcontentsline{toc}{section}{Tabellenverzeichnis}
 }{}
 \ifthenelse{\boolean{AlgorithmenverzeichnisEinfuegen}}{
 % Algorithmenverzeichnis
 \listofalgorithms
-\addcontentsline{toc}{chapter}{Algorithmenverzeichnis}
+%\addcontentsline{toc}{section}{Algorithmenverzeichnis}
 }{}
 % Literaturverzeichnis
+\renewcommand{\refname}{Literaturverzeichnis} 
 \bibliographystyle{alphadin}
 \bibliography{literatur}
-\addcontentsline{toc}{chapter}{\bibname}
+%\addcontentsline{toc}{section}{\bibname}
 % Erklaerung
 %\cleardoublepage
 %\includepdf[]{kapitel/Eidesstattliche_Versicherung.pdf}

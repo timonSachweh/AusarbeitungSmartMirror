@@ -1,7 +1,7 @@
 % kapitel2.tex
 %\chapter{Die Softwarekonstruktion}
 %\label{chapter:kap2}
-\section{Aufbau der Softwarearchitektur}
+\section{Software - Architektur}
 \label{sec:softwarearchitektur}
 Wie im ersten Teil der Ausarbeitung verdeutlicht wurde, ist der Raspberry Pi im Inneren des Spiegels das Kernstück der gesamten Plattform. Auf dieser Hardwarekomponente läuft dementsprechend die komplett entwickelte Software. 
 
@@ -29,7 +29,7 @@ Beide Softwarekomponenten werden im Folgenden detaillierter beschrieben: zuerst 
 \end{figure}
 
 
-\subsection{Die SmartMirror-Anwendung}
+\subsection{SmartMirror-Anwendung}
 \label{smartMirror}
 Die Funktionalität der SmartMirror-Anwendung lässt sich am besten ausgehend von der Gestaltung der Benutzungsschnittstelle erfassen, die in \autoref{fig:grafoberflaeche} dargestellt wird. Die Darstellung lässt sich grob in drei Bereiche strukturieren: den oberen linken Bereich, den oberen rechten und den unteren Bereich. Oben links werden aktuelle Informationen konkret Uhrzeit, Datum und Wetterdaten angezeigt, während im rechten Bereich die nächsten Kalenderereignisse aufgeführt werden und im unteren Bereich aktuelle Neuigkeiten (News) angezeigt werden. 
 
@@ -81,7 +81,7 @@ Die Controller-Schicht importiert die anzuzeigenden Daten und bestimmt die aktue
  Analog dazu speichert die Klasse \textit{NewsfeedAccess} ihre Daten in Form von \textit{NewsFeedEntries} für den \textit{NewsBlockFrame} und die Klasse \textit{GoogleAccess} stellt ihre importierten Daten  als \textit{CalenderEntries} bereit.
  
 
-\subsection{Das StartUp-Skript}
+\subsection{StartUp-Skript}
 \label{subsec:startup}
 Die Funktionalität des \textit{StartUp-Skripts} zeichnet sich durch das Starten der Hauptanwendung aus, nachdem der \textit{Raspberry Pi} mit dem Bootvorgang fertig ist. Dazu wurde ein Bash-Skript (vgl. \autoref{lst:startup}) geschrieben, welches automatisch beim Starten des Computers ausgeführt wird. 
 Das direkte Ausführen des Skripts wird dadurch realisiert, dass die Datei in das Verzeichnis \textit{/etc/init.d/} gelegt wird, wodurch sie direkt im Anschluss an die Bootsequenz ausgeführt wird. \cite{nemeth2006linux}
@@ -92,7 +92,7 @@ Das direkte Ausführen des Skripts wird dadurch realisiert, dass die Datei in da
 
 Das Skript ist recht einfach aufgebaut. In der ersten Zeile wird das Interpreter-Programm \textit{/bin/sh} definiert, womit das Skript ausgeführt wird. Als nächstes wechselt das Kommando in Zeile 3 in das Verzeichnis der \textit{SmartMirror}-Anwendung (vgl. \autoref{smartMirror}), um die Anwendung dort in Zeile 5 zu starten. Die Zeile 4 stellt ausschließlich sicher, dass der Hauptmonitor für den grafischen Output verwendet wird, damit die UI der \textit{SmartMirror}-Anwendung auch in dem Spiegel dargestellt wird. Wenn diese Zeile ausgelassen würde und der Raspberry Pi ohne GUI startet, dann läuft zwar die Anwendung für den Spiegel, aber weil kein grafischer Ausgang definiert ist, wird die Anwendung nicht auf dem externen Monitor visualisiert. Somit bietet die Zeile eine Sicherheit, dass auch wirklich ein angeschlossener Monitor angesteuert wird.
 
-\section{Der SmartMirror im Einsatz}
+\section{SmartMirror im Einsatz}
 \label{sec:imEinsatz}
 
 Sobald Hard- und Softwarekomponenten miteinander verknüpft werden, entsteht das in \autoref{fig:spiegelfertig} dargestellte Ergebnis.
