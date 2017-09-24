@@ -83,14 +83,14 @@ Die Controller-Schicht importiert die anzuzeigenden Daten und bestimmt die aktue
 
 \subsection{StartUp-Skript}
 \label{subsec:startup}
-Die Funktionalität des \textit{StartUp-Skripts} zeichnet sich durch das Starten der Hauptanwendung aus, nachdem der \textit{Raspberry Pi} mit dem Bootvorgang fertig ist. Dazu wurde ein Bash-Skript (vgl. \autoref{lst:startup}) geschrieben, welches automatisch beim Starten des Computers ausgeführt wird. 
+Die Funktionalität des \textit{StartUp-Skripts} zeichnet sich durch das Starten der Hauptanwendung aus, nachdem der Raspberry Pi mit dem Bootvorgang fertig ist. Dazu wurde ein Bash-Skript (vgl. \autoref{lst:startup}) geschrieben, welches automatisch beim Starten des Computers ausgeführt wird. 
 Das direkte Ausführen des Skripts wird dadurch realisiert, dass die Datei in das Verzeichnis \textit{/etc/init.d/} gelegt wird, wodurch sie direkt im Anschluss an die Bootsequenz ausgeführt wird. \cite{nemeth2006linux}
 
 \begin{minipage}{\textwidth}
 	\lstinputlisting[language=bash, frame=single, caption={StartUp-Skript}, label=lst:startup]{codesnippets/startscript.sh}
 \end{minipage} 
 
-Das Skript ist recht einfach aufgebaut. In der ersten Zeile wird das Interpreter-Programm \textit{/bin/sh} definiert, womit das Skript ausgeführt wird. Als nächstes wechselt das Kommando in Zeile 3 in das Verzeichnis der \textit{SmartMirror}-Anwendung (vgl. \autoref{smartMirror}), um die Anwendung dort in Zeile 5 zu starten. Die Zeile 4 stellt ausschließlich sicher, dass der Hauptmonitor für den grafischen Output verwendet wird, damit die UI der \textit{SmartMirror}-Anwendung auch in dem Spiegel dargestellt wird. Wenn diese Zeile ausgelassen würde und der Raspberry Pi ohne GUI startet, dann läuft zwar die Anwendung für den Spiegel, aber weil kein grafischer Ausgang definiert ist, wird die Anwendung nicht auf dem externen Monitor visualisiert. Somit bietet die Zeile eine Sicherheit, dass auch wirklich ein angeschlossener Monitor angesteuert wird.
+Das Skript ist recht einfach aufgebaut. In der ersten Zeile wird das Interpreter-Programm \textit{/bin/sh} definiert, womit das Skript ausgeführt wird. Als nächstes wechselt das Kommando in Zeile 3 in das Verzeichnis der \textit{SmartMirror}-Anwendung (vgl. \autoref{smartMirror}), um die Anwendung dort in Zeile 5 zu starten. Die Zeile 4 stellt ausschließlich sicher, dass der Hauptmonitor für den grafischen Output verwendet wird, damit die UI der \textit{SmartMirror}-Anwendung auch in dem Spiegel dargestellt wird. Wenn diese Zeile ausgelassen würde und der Raspberry Pi ohne GUI startet, dann läuft zwar die Anwendung für den Spiegel, aber weil kein grafischer Ausgang definiert ist, wird die Anwendung nicht auf dem externen Monitor visualisiert. Somit bietet die Zeile die Sicherheit, dass auch wirklich ein angeschlossener Monitor angesteuert wird.
 
 \section{SmartMirror im Einsatz}
 \label{sec:imEinsatz}
@@ -100,7 +100,7 @@ Um jedoch die Software auf die Hardware zu überspielen, sodass die Software auc
 
 So ist als erstes dafür zu sorgen, dass der Raspberry mit dem Internet verbunden ist, um benötigte Software installieren zu können. Anschließend ist sicherzustellen, dass die richtige Version von Python (3.6) und damit des Python-Interpreters installiert ist, da sonst die \textit{SmartMirror}-Anwendung nicht ausgeführt werden kann. 
 Außerdem müssen alle bei der Implementierung integrierten Libraries, ebenfalls auf dem Raspberry Pi installiert sein. 
-Im letzten Schritt muss noch das StartUp-Skript in den das \autoref{subsec:startup} beschriebene Verzeichnis kopiert werden und in der \textit{Configurations.py} müssen die korrekten GPIO-Pins für die entsprechenden Sensoren hinterlegt werden. 
+Im letzten Schritt muss noch das StartUp-Skript in das in \autoref{subsec:startup} beschriebene Verzeichnis kopiert werden und in der \textit{Configurations.py} müssen die korrekten GPIO-Pins für die entsprechenden Sensoren hinterlegt werden. 
 
 Nachdem diese Schritte durchgeführt wurden, startet der Spiegel nach einem Neustart direkt mit der softwareseitig implementierten UI und repräsentiert damit den fertigen Spiegel, der ausschließlich an den Strom angeschlossen und eine zuvor konfigurierte Internetverbindung herstellen muss. 
 
