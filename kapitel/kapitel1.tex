@@ -4,6 +4,8 @@
 
 \section{Hardware - Komponenten und Aufbau}
 \label{chapter:kap1}
+In dem folgenden Kapitel, der den hardwaretechnischen Aufbau des \textit{SmartMirrors} beschreibt, wird als Referenz ein Artikel aus der Zeitschrift c´t Make verwendet.\cite{make042017smartmirror}
+
 Der Spiegel besteht aus drei wesentlichen Komponenten: dem Spiegel, dem Monitor und der Steuereinheit, die alle darzustellenden Daten ermittelt. Diese Komponenten sind in \autoref{tab:Hardware} aufgeführt und werden im Folgenden näher beschrieben. Während die erste Spalte die Komponente angibt, listet die zweite Spalte die Bauteile, sowie Arbeitsmaterial, im Detail auf. Spalte vier gibt die Bezugsquelle als Link an und die letzte Spalte enthält die Einkaufspreise.
 \begin{table}[H]
 	\scriptsize
@@ -72,7 +74,7 @@ Die Folie sollte idealerweise einige Zentimeter breiter und länger sein, als di
 		\label{fig:Folierung}
 \end{wrapfigure}
 
-Durch die Verwendung einer Spionspiegelfolie kann zwar eine akzeptable Qualität erzielt werden. Bessere Ergebnisse erfordern jedoch eine professionell beschichtete Glasscheibe wie beispielsweise von der Firma Glas Star aus Bochum, die sich auf die Herstellung von Glasscheiben für Smart Mirrors spezialisiert hat (vgl. \href{https://www.glas-star.de/spionspiegelnachmass/chrome-spy-spiegel/}{Link}). 	
+Durch die Verwendung einer Spionspiegelfolie kann zwar eine akzeptable Qualität erzielt werden. Bessere Ergebnisse erfordern jedoch eine professionell beschichtete Glasscheibe wie beispielsweise von der Firma Glas Star aus Bochum, die sich auf die Herstellung von Glasscheiben für Smart Mirrors spezialisiert hat (vgl. \cite{glasstar}). 	
 % Link als Quelle hinzufügen
 
 \subsection{Monitor}
@@ -94,10 +96,10 @@ Der \textit{SmartMirror} benötigt eine Steuereinheit zum Sammeln und Aufbereite
 	\caption{GPIO-Belegung}
 	\label{fig:gpio}
 \end{figure}
-Als Steuereinheit und Herzstück des \textit{SmartMirrors} dient ein Raspberry Pi 3 Model B. Das integrierte WLAN-Modul ermöglicht den mobilen Einsatz des \textit{SmartMirrors}, so dass dieser nicht fest an einen Ort gebunden ist. Für das Projekt werden lediglich einige der 40 GPIO-Anschlüsse des Boards für die Sensoren benötigt. Die genaue Belegung der GPIO-Anschlüsse ist in \autoref{fig:gpio} grafisch dargestellt.
+Als Steuereinheit und Herzstück des \textit{SmartMirrors} dient ein Raspberry Pi 3 Model B. Das integrierte WLAN-Modul ermöglicht den mobilen Einsatz des \textit{SmartMirrors}, so dass dieser nicht fest an einen Ort gebunden ist. Für das Projekt werden lediglich einige der 40 GPIO-Anschlüsse des Boards für die Sensoren benötigt. Die genaue Belegung der GPIO-Anschlüsse ist in \autoref{fig:gpio} grafisch dargestellt.\cite{upton2013raspberry}
 
 % Link wieder als Quelle
-Unter dem Link \url{https://www.raspberrypi.org/documentation/} ist eine ausführliche Dokumentation zu den Eigenschaften des Raspberry Pi zu finden. Da der Raspberry Pi üblicherweise ohne ein Betriebssystem geliefert wird, wird unter der bereits genannten Adresse ebenfalls eine detaillierte Betriebssystem-Installationsanleitung bereit gestellt. Für das Projekt wird als Betriebssystem die ,,RASPBIAN JESSIE WITH DESKTOP`` Distribution verwendet. Alternativ zur Desktop Version gibt es auch eine Light Version. Diese ist wegen der fehlenden grafischen Oberfläche für dieses Projekt ungeeignet.
+Unter dem Link \cite{rasporg} ist eine ausführliche Dokumentation zu den Eigenschaften des Raspberry Pi zu finden. Da der Raspberry Pi üblicherweise ohne ein Betriebssystem geliefert wird, wird unter der bereits genannten Adresse ebenfalls eine detaillierte Betriebssystem-Installationsanleitung bereit gestellt. Für das Projekt wird als Betriebssystem die ,,RASPBIAN JESSIE WITH DESKTOP`` Distribution verwendet. Alternativ zur Desktop Version gibt es auch eine Light Version. Diese ist wegen der fehlenden grafischen Oberfläche für dieses Projekt ungeeignet.
 
 \subsubsection*{Bewegungssensor}
 Der Bewegungssensor wird eingesetzt, um je nach Bedarf das Display ein- und auszuschalten und somit Energie zu sparen. Betritt eine Person den Raum, indem der Spiegel hängt, soll  der Sensor ein Signal zum Einschalten des Displays geben. Andernfalls bleibt das Display ausgeschaltet. 
